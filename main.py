@@ -1,10 +1,13 @@
 import subprocess
 import time
+import platform
 print("activate")
-def myping(host):
-    command = ["ping", "-n", "1", host]
-    return subprocess.call(command) == 0
 
+def myping(host):
+    parameter = "-n" if platform.system().lower() == "windows" else "-c"
+    command = ["ping", parameter, "1", host]
+    response = subprocess.call(command)
+    return response == 0
 while True:
     if myping("www.google.com")<=7:
         cmd1 = 'netsh wlan disconnect'
